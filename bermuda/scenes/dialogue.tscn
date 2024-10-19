@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfkvxpxrticd4"]
+
+[ext_resource type="Script" path="res://scenes/dialogue.gd" id="1_ajffp"]
+[ext_resource type="Texture2D" uid="uid://bb74ocg47h3g5" path="res://WhatsApp Image 2024-10-19 at 12.33.06_8c5e313f.jpg" id="1_q0uva"]
+
+[node name="Dialogue" type="CanvasLayer"]
+script = ExtResource("1_ajffp")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = -88.0
+offset_top = 15.0
+offset_right = 207.0
+offset_bottom = 77.0
+texture = ExtResource("1_q0uva")
+region_rect = Rect2(6.87505, 4.63084, 18.3937, 22.5938)
+
+[node name="Name" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_right = 77.0
+offset_bottom = 19.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Name"
+
+[node name="Chat" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 21.0
+offset_right = 278.0
+offset_bottom = 52.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Chat"

@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=3 uid="uid://1k2528i434ol"]
+
+[ext_resource type="Script" path="res://scenes/character_body_2d.gd" id="1_u0adq"]
+[ext_resource type="Texture2D" uid="uid://fck6tsw0mwh2" path="res://vecteezy_indian-village-man-cartoon-character-moral-stories-for-the_26563270-removebg-preview.png" id="2_mx7tc"]
+[ext_resource type="Script" path="res://scenes/collision_shape_2d.gd" id="4_w7w6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkb0g"]
+size = Vector2(336, 946)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yi4c5"]
+atlas = ExtResource("2_mx7tc")
+region = Rect2(528, 0, 176, 353)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxk2w"]
+atlas = ExtResource("2_mx7tc")
+region = Rect2(0, 0, 176, 353)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovmlb"]
+atlas = ExtResource("2_mx7tc")
+region = Rect2(176, 0, 176, 353)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rffb3"]
+atlas = ExtResource("2_mx7tc")
+region = Rect2(352, 0, 176, 353)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8wqer"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yi4c5")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxk2w")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovmlb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rffb3")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7kvy"]
+radius = 200.716
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_u0adq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -29)
+shape = SubResource("RectangleShape2D_qkb0g")
+script = ExtResource("4_w7w6w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(27, -4.99999)
+scale = Vector2(4.46591, 3.10977)
+sprite_frames = SubResource("SpriteFrames_8wqer")
+animation = &"back"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(27, -4.99999)
+scale = Vector2(4.46591, 3.10977)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.223917, 1.9294)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_i7kvy")
+debug_color = Color(0.699652, 0.491526, 0.0679013, 0.42)
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

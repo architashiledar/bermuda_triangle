@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dfrhi1eeukerq"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+position = Vector2(-163, 431.75)
+scale = Vector2(2.20455, 2.25071)
