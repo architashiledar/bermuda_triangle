@@ -21,7 +21,7 @@ var interaction_target = null  # Reference to the current NPC the player can int
 @onready var collision_shape = $CollisionShape2D  # Reference to the player's collision shape
 
 # Movement variables
-var speed = 1500  # Adjust speed to your preference
+var speed = 300  # Adjust speed to your preference
 
 func _process(_delta):
 	handle_movement()
@@ -37,25 +37,32 @@ func handle_movement():
 	# Handle input for movement
 	if Input.is_action_pressed("ui_up"):
 		velocity.y = -speed
-		
+		is_moving = true
 	elif Input.is_action_pressed("ui_down"):
 		velocity.y = speed
+		is_moving = true
 	
 	if Input.is_action_pressed("ui_right"):
 		animated_sprite.flip_h = false
 		velocity.x = speed
-		
+		is_moving = true
 	elif Input.is_action_pressed("ui_left"):
 		animated_sprite.flip_h = true
 		velocity.x = -speed
+		is_moving = true
 		
+	# Handle animations based on movement state
 	if not is_moving:
 		animated_sprite.play("idle")
 	else:
 		update_animation()
 
-	# Use move_and_slide to handle collisions with NPCs and other objects
+	# Move the character and handle collision
 	move_and_slide()
+
+	# Prevent the player from walking over the NPC
+	if interaction_target != null:
+		prevent_walking_over_npc(interaction_target)
 
 # Function to update the player's animation based on movement
 func update_animation():
@@ -85,14 +92,13 @@ func _on_Area2D_body_exited(body):
 		can_interact = false  # Disable interaction
 		interaction_target = null  # Clear the interaction target
 
-# Signal handler for entering NPC's area
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("npcs"):  # Check if the body belongs to the NPC group
-		interaction_target = body  # Set the NPC as the current interaction target
-		can_interact = true  # Allow interaction when in range
-
-# Signal handler for exiting NPC's area
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("npcs"):  # Check if the body belongs to the NPC group
-		can_interact = false  # Disable interaction when the player exits the NPC's area
-		interaction_target = null  # Clear the interaction target
+# Prevent the player from walking over the NPC
+func prevent_walking_over_npc(npc):
+	# Check if the player has collided with the NPC
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		if collision.collider == npc:
+			# Stop movement if colliding with the NPC
+			velocity = Vector2.ZERO  
+			move_and_slide()  # Ensure player does not overlap with the NPC
+			break  # Exit loop after stopping movement
