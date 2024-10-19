@@ -81,7 +81,6 @@ scale = Vector2(4.46591, 3.10977)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.223917, 1.9294)
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_i7kvy")
 debug_color = Color(0.699652, 0.491526, 0.0679013, 0.42)
 

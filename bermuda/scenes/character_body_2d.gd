@@ -21,7 +21,7 @@ var interaction_target = null  # Reference to the current NPC the player can int
 @onready var collision_shape = $CollisionShape2D  # Reference to the player's collision shape
 
 # Movement variables
-var speed = 300  # Adjust speed to your preference
+var speed = 2000  # Adjust speed to your preference
 
 func _process(_delta):
 	handle_movement()
